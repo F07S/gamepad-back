@@ -17,6 +17,9 @@ const User = require("../models/User");
 router.post("/signup", fileUpload(), async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    const { picture } = req.files;
+    // console.log(req.body);
+    console.log(picture);
 
     // IF THE FIELDS ARE NOT FILLED IN *************************\\
     if (!username || !email || !password) {
@@ -42,10 +45,8 @@ router.post("/signup", fileUpload(), async (req, res) => {
       salt: salt,
     });
 
-    if (req.files?.avatar) {
-      const result = await cloudinary.uploader.upload(
-        convertToBase64(req.files.avatar)
-      );
+    if (req.files) {
+      const result = await cloudinary.uploader.upload(convertToBase64(picture));
       newUser.account.avatar = result;
     }
     await newUser.save();
@@ -59,6 +60,25 @@ router.post("/signup", fileUpload(), async (req, res) => {
 
     res.json(clientRes);
   } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+router.get("/user", async (req, res) => {
+  try {
+    const user = await User.find();
+    res.json({ user: user });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+router.get("/user/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    res.json({ user: user });
+  } catch (error) {
+    console.log(error.message);
     res.status(400).json({ message: error.message });
   }
 });
