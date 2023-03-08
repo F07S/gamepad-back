@@ -3,17 +3,18 @@ const mongoose = require("mongoose");
 const Fav = mongoose.model("Favourite", {
   name: {
     unique: true,
-    type: String,
+    type: Array,
   },
 
   image: {
     required: true,
-    type: String,
+    type: Array,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  user: String,
   favToken: String,
 });
 

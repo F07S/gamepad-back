@@ -6,11 +6,12 @@ const Review = require("../models/Review");
 
 router.post("/addfavourites", async (req, res) => {
   try {
-    const { name, image } = req.body;
+    const { name, image, user } = req.body;
 
     const newFav = new Fav({
       name: name,
       image: image,
+      user: user,
     });
     await newFav.save();
     const clientRes = {
