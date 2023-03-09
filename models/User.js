@@ -11,7 +11,7 @@ const User = mongoose.model("User", {
     },
     avatar: Object,
   },
-
+  favourites: Array,
   token: String,
   hash: String,
   salt: String,

@@ -16,10 +16,10 @@ const User = require("../models/User");
 
 router.post("/signup", fileUpload(), async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, favourites } = req.body;
     const { picture } = req.files;
-    // console.log(req.body);
-    console.log(picture);
+    console.log(favourites);
+    // console.log(picture);
 
     // IF THE FIELDS ARE NOT FILLED IN *************************\\
     if (!username || !email || !password) {
@@ -40,6 +40,7 @@ router.post("/signup", fileUpload(), async (req, res) => {
     const newUser = new User({
       email,
       username,
+      favourites,
       token: token,
       hash: hash,
       salt: salt,
@@ -56,6 +57,7 @@ router.post("/signup", fileUpload(), async (req, res) => {
       email: newUser.email,
       token: newUser.token,
       username: newUser.username,
+      favourites: newUser.favourites,
     };
 
     res.json(clientRes);
@@ -106,6 +108,21 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+router.put("/user/update/:id", async (req, res) => {
+  try {
+    const userToUpdate = await User.findById(req.params.id);
+    // console.log(userToUpdate.favourites);
+    console.log(req.body);
+    userToUpdate.favourites.push(req.body);
+    console.log(userToUpdate.favourites);
+    await userToUpdate.save();
+    res.status(200).json(userToUpdate);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
   }
 });
 
