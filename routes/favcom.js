@@ -48,12 +48,14 @@ router.delete("/favourites/delete/:id", async (req, res) => {
 
 router.post("/addreview", async (req, res) => {
   try {
-    const { title, review, game, gameId } = req.body;
+    const { title, review, game, gameId, user, userimage } = req.body;
     const newReview = new Review({
       title: title,
       review: review,
       game: game,
       gameId: gameId,
+      user: user,
+      userimage: userimage,
     });
     await newReview.save();
 

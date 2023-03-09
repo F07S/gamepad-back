@@ -5,10 +5,10 @@ const User = mongoose.model("User", {
     unique: true,
     type: String,
   },
+  username: {
+    type: String,
+  },
   account: {
-    username: {
-      type: String,
-    },
     avatar: Object,
   },
   favourites: Array,
