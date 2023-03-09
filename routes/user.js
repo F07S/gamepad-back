@@ -129,24 +129,13 @@ router.put("/user/update/:id", async (req, res) => {
 router.put("/user/deletefav/:id", async (req, res) => {
   try {
     const userToUpdate = await User.findById(req.params.id);
+    const favToDelete = userToUpdate.favourites.find(
+      (fav) => fav.id === req.body.id
+    );
+    const indexToDelete = userToUpdate.favourites.indexOf(favToDelete);
+    userToUpdate.favourites.splice(indexToDelete, 1);
 
-    // console.log(req.body.id);
-
-    userToUpdate.favourites.map((fav) => {
-      if (fav.id === req.body.id) {
-        const index = userToUpdate.favourites.indexOf(fav);
-        console.log(index);
-        if (index === 0) {
-          userToUpdate.favourites.splice(index, index + 1);
-          console.log(userToUpdate.favourites);
-        } else if (index > 0) {
-          userToUpdate.favourites.splice(index, index);
-          console.log(userToUpdate.favourites);
-        }
-        userToUpdate.save();
-      }
-    });
-
+    userToUpdate.save();
     res.status(200).json(userToUpdate);
   } catch (error) {
     console.log(error.message);
