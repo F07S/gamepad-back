@@ -32,7 +32,7 @@ app.use(gameRoutes);
 app.get("/test", (req, res) => {
   try {
     res.json("Test route");
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });

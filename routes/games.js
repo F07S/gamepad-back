@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -74,7 +74,7 @@ router.get("/allgames", async (req, res) => {
       //   console.log(response.data);
       res.json(response.data);
     }
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -86,7 +86,7 @@ router.get("/genres", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -98,7 +98,7 @@ router.get("/platforms", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -111,7 +111,7 @@ router.get("/game/:id", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -124,7 +124,7 @@ router.get("/game-series/:id", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -137,7 +137,7 @@ router.get("/review/:id", async (req, res) => {
     );
     // console.log(response.data);
     res.json(response.data);
-  } catch {
+  } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
